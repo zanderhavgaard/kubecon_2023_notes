@@ -55,9 +55,29 @@ https://colocatedeventseu2023.sched.com/event/1Jo9m/cl-lightning-talk-telefonist
 
 https://github.com/wayfair-incubator/telefonistka
 
+You have many clusters, and you have a gitops repo with envs per cluster ...
+
+Put stuff in folders, push, works, create pr, review, merge ... repeat n times for n envs ...
+
+telefonistka can automate creating PRs to promote changes from env to env ... by copying files from folder to folder - genius ...
+
+can spot drift between envs
+
+"RY is the new DRY"
+
 ## Lightning talk: using kustomize krm function to enhance argocd application deployments
 
 https://colocatedeventseu2023.sched.com/event/1Jo9s/cl-lightning-talk-using-kustomize-krm-functions-to-enhance-argo-cd-application-deployments-jan-heylen-nokia
+
+## Lightning talk: merging best practices with reality: one repo for code and helm
+
+https://colocatedeventseu2023.sched.com/event/1Jo9y/cl-lightning-talk-merging-best-practices-with-reality-one-repository-for-code-and-helm-omer-kahani-snyk
+
+application code in one repo
+helm code in seperate repo
+... is not alwasy optimal
+
+say, you add an env var, and then want to deploy it with helm ... you then also need to change the helm chart
 
 ---
 
@@ -68,6 +88,41 @@ https://colocatedeventseu2023.sched.com/event/1Jo9s/cl-lightning-talk-using-kust
 ## argocd as the enginge of a brownfield migration to k8s
 
 https://colocatedeventseu2023.sched.com/event/1JoA1/argocd-as-the-engine-of-a-brownfield-migration-to-kubernetes-john-keates-wehkamp
+
+they did migration from mesos to k8s (eks)
+
+requirements? what features to you really need?
+
+talking to people is hard and scary
+
+migration requirements:
+
+- dev delivers ci result (container image)
+- platform returns reachable microservice
+- don't make anything worse
+- don't make everyone rewrite their code
+
+complicated ingress setup ...
+
+they had all of their env config stuff in one repo, this was not great ...
+
+they split that into 3:
+
+- things that are somewhat specialized, but shared
+  - k8s, argocd
+- stuff that is the same for everything
+  - control-plane for control-plane
+  - argo of argos ?!
+  - many clusters
+- application-specific things
+
+For the platform team, every env is production
+
+use Argo applicationset matrices for defining workloads, across envs
+
+they went from terraform to crossplane and then back to terraform
+
+- crossplane providers installing hundres of crds created sync problems with argo, this is to be fixed soon, by allowing only installing the needed crds.
 
 ## how to preview and diff your argocd deployments
 
