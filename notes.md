@@ -215,6 +215,38 @@ best practice is make rollouts as `atomic` as possible
 
 https://colocatedeventseu2023.sched.com/event/1JoAP/scaling-argo-security-and-multi-tenancy-in-aws-eks-at-the-new-york-times-david-grizzanti-luke-philips-the-new-york-times
 
+building an IDP
+
+- devs have to do many things as things "shift left"
+- try to help by building a "platform"
+
+solution:
+
+- have few shared, multi-tenant clusters: dev, stage, prod
+- feature teams deploy to the clusters
+- platform team manages/operates clusters
+
+CD with argo
+
+multi-tenant argo architectures:
+
+- each clusters has it's own argo instance
+  - each cluster works on its own
+  - easy isolation and security concersn
+- managment cluster / argo
+  - one argo manages many clusters
+  - easy to manage
+  - difficult security management
+- argo per group (tenant?)
+  - argo instances run in management cluster
+  - manages workloads in downstream clusters
+
+they chose to go with management clusters with seperate argo instances for sandbox envs
+
+challenges with scaling the architecture:
+
+- recommend using HA and autoscaling from the helm chart
+
 ## gitops me some of that! managing hundres of cluster with argocd
 
 https://colocatedeventseu2023.sched.com/event/1JoAV/gitops-me-some-of-that-managing-hundreds-of-clusters-with-argo-cd-mike-tougeron-adobe-inc
