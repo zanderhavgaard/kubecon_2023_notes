@@ -128,13 +128,88 @@ they went from terraform to crossplane and then back to terraform
 
 https://colocatedeventseu2023.sched.com/event/1JoA7/how-to-preview-and-diff-your-argo-cd-deployments-kostis-kapelonis-codefresh
 
+kustomize overlays can be confusing ... many layers of kustomize
+
+we only really care about the final manifest
+
+helm is just as bad, trying to figure out what changes to helm templates actually result in ...
+
+argocd cli has a diff command to diff resources in the cluster with something else
+
+- use with `--local` option to diff against a local file
+- great for development
+
+pre-rendering manifests and storing the rendered output in git
+
+- but then you need two git repos, one with templates/not-rendered, and one with not-rendered
+- you need automation to render the templates in the first into the second
+- makes changes complicated - you need to make changes two places, with different implications, makes PR/review more complicated, probably needs some rules/culture of changing first repo before second
+
+render manifests on-the-fly
+
+- use changes in kustomize/helm to render the actual changes in downstream uses, and show those diffs on the PRs of the changes
+
+https://github.com/kostis-codefresh/manifest-refactoring
+
 ## nextgen argo: elevating CD with easy to use plugins
 
 https://colocatedeventseu2023.sched.com/event/1JoAD/nextgen-argo-elevating-continuous-delivery-with-easy-to-use-plugins-michael-crenshaw-sai-sindhu-chakradari-intuit
 
+configmanagement plugins + improvements to argocd
+
+They run about 40 argo instances and 20000 (?) applications
+
+repo-server with plugin?
+
+why use a configmanamentplugin (CMP / plugin)
+
+- for example: use unsupported templating tool
+- trigger side-effects, events
+
+new feature for dynamic parameters for CMPs
+
+parameters can be "announced" by a CMP
+
 ## revolutionizing CD: how databricks integrates argorollouts to achieve zero downtime releases
 
 https://colocatedeventseu2023.sched.com/event/1JoAM/revolutionizing-continuous-deployment-how-databricks-integrates-argorollouts-to-achieve-zero-downtime-releases-rohit-agrawal-gavin-kliger-databricks-inc
+
+goals with rollouts:
+
+- smallest blast radius
+- rollback as quickly as possible
+
+standard k8s rollouts are not enough
+
+- scale from one replicaset to another
+- human needs to start rollback
+
+what is a rollout?
+the argo kind `Rollout` is a drop-in replacement for a kind `Deployment`, which adds:
+
+- staged released with pauses
+- background health checks
+- this is enabled by the `strategy` key
+  - everything else stays the same as `Deployment`
+
+to enable the strategy, we use an `AnalysisTemplate`, which could for example monitor a prometheus metric and rollback based on a bad value over a given amount of time.
+
+rolling out an update using a `Rollout` uses a canary deployments, with a canary replicaset
+
+managing health checks:
+
+- create default library of parameterized health checks that works for your services
+- make it easy for teams to add their own health checks for their workloads
+- implement a good feedback loop
+
+new feature are dry-run checks, which can be used when implementing new health checks:
+
+- when doing a rollout, the `wet-run` checks determine whether the rollout is a success
+- devs can add `dry-run` checks, and receive feedback from real rollouts, but without impacting the result of them
+
+argo rollouts can be integrated with istio, for weight-based routing to canary rollouts
+
+best practice is make rollouts as `atomic` as possible
 
 ## scaling argo security and multi-tenancy in aws eks at new york times
 
