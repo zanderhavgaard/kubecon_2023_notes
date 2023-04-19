@@ -250,3 +250,116 @@ challenges with scaling the architecture:
 ## gitops me some of that! managing hundres of cluster with argocd
 
 https://colocatedeventseu2023.sched.com/event/1JoAV/gitops-me-some-of-that-managing-hundreds-of-clusters-with-argo-cd-mike-tougeron-adobe-inc
+
+# KubeCon Day 1
+
+## A CI/CD platform in the palm of your hand
+
+https://kccnceu2023.sched.com/event/1HyVW/a-cicd-platform-in-the-palm-of-your-hand-claudia-beresford-weaveworks?iframe=no&w=100%&sidebar=yes&bg=no
+
+introduction to microvms:
+
+- firecracker
+- middle ground between normal vms and containers
+- quick start time < 125ms
+- rapid deployment
+
+what is liquid metal?
+
+- https://github.com/weaveworks-liquidmetal
+- set of tools to provision k8s on microvms
+- maintained by weaveworks
+- flintlock
+  - tools to provision and manage microvms for k8s on bare metal
+- clusterapi for provisioning clusters
+- containerd for provisioning components (kernel, os, etc.)
+
+use cases:
+
+- edge computing
+- low resource system
+- bare metal
+- ci self-hosted runners
+
+Proof-of-concept CI/CD platform:
+
+- self hosted github actions
+- liquid metal cluster
+- on dedicated ad-hoc microvms
+- actions runner controller:
+  - kube controller
+  - pool of runners as pods
+- https://github.com/weaveworks-liquidmetal/microvm-action-runner
+
+benefits (vs. traditional ci platforms)
+
+- more performant
+  - higher utilization of machines
+- more security
+  - container builds, but with own kernel
+  - no risk of cross-pollution as everthing runs in ephemeral vm
+- can run things in kernel space, eg. eBPF
+- fast builds
+- possible on lower end hardware, lower power hardware, hence lower cost
+
+## How we securely scaled multi-tenancy with vcluster, crossplane and argocd
+
+https://kccnceu2023.sched.com/event/1HyYu/how-we-securely-scaled-multi-tenancy-with-vcluster-crossplane-and-argo-cd-ilia-medvedev-kostis-kapelonis-codefresh?iframe=no&w=100%&sidebar=yes&bg=no
+
+Goal was to build a SaaS argocd solution, where each customer gets an argo instance
+
+argo architectures:
+
+- single cluster with many argo instances
+  - namespace bases, argocd instance in each namespace
+  - easy to manage
+  - same cluster, same crd, noisy neighbor problems
+- customer per cluster
+  - total isolation
+  - slow to setup
+  - much more complicated to operate
+- vcluster per customer, with argocd instance
+
+Implementation:
+
+- using vcluster
+- crossplane
+
+## Choose your own adventure: the treachorous trek to development
+
+https://kccnceu2023.sched.com/event/1HyWm/choose-your-own-adventure-the-treacherous-trek-to-development-whitney-lee-vmware-viktor-farcic-upbound?iframe=no&w=100%&sidebar=yes&bg=no
+
+https://www.youtube.com/watch?v=GDInFocQJTU
+
+## state of backstage in 2023
+
+https://kccnceu2023.sched.com/event/1HyUD/the-state-of-backstage-in-2023-ben-lambert-patrik-oldsberg-spotify?iframe=no&w=100%&sidebar=yes&bg=no
+
+backstage is 3 years old!
+
+now an incubating cncf project
+
+more than 100 opensource plugins
+
+new governance:
+
+- project areas
+- contributor ladder
+  - core maintainer
+  - project area maintainer
+  - plugin maintainer
+  - organization member
+  - contributor
+  - the more you contribute, the higher on the ladder you can climb
+  - based on standard cncf template for governing contributions
+
+new project areas
+
+why software templates?
+- creation of new software components
+- every company is different
+- best practices built in
+
+the next priority on the backstage roadmap is doing declarative (no code) plugin integration
+- top of roadmap
+- plugin installation without typescript
