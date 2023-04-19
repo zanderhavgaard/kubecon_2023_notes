@@ -363,3 +363,22 @@ why software templates?
 the next priority on the backstage roadmap is doing declarative (no code) plugin integration
 - top of roadmap
 - plugin installation without typescript
+
+## Operate multi-tenancy service mesh with argocd in production
+
+https://kccnceu2023.sched.com/event/1Hyd1/operate-multi-tenancy-service-mesh-with-argocd-in-production-lin-sun-soloio-faseela-k-ericsson-software-technology?iframe=no&w=100%&sidebar=yes&bg=no
+
+envoy proxy is not great for multi-tenancy
+
+service mesh evolution is moving towards sidecar-less
+
+multi-tenancy with istio:
+- single cluster, single mesh, multiple teams
+- single cluster, multi mesh
+- multi cluster, multi mesh
+
+## cilium updates, news, roadmap and in the wild
+
+https://kccnceu2023.sched.com/event/1HyTU/cilium-updates-news-roadmap-and-in-the-wild-liz-rice-isovalent-andy-allred-eficode-richard-hartmann-grafana-labs?iframe=no&w=100%&sidebar=yes&bg=no
+
+
