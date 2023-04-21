@@ -381,4 +381,14 @@ multi-tenancy with istio:
 
 https://kccnceu2023.sched.com/event/1HyTU/cilium-updates-news-roadmap-and-in-the-wild-liz-rice-isovalent-andy-allred-eficode-richard-hartmann-grafana-labs?iframe=no&w=100%&sidebar=yes&bg=no
 
+# Day 3
+
+## 1 milion lines of yaml: wrapping kubernetes configurtaion for hundres of teams
+
+https://kccnceu2023.sched.com/event/1Hycs/1m-lines-of-yaml-wrangling-kubernetes-configuration-for-hundreds-of-teams-katrina-verey-shopify?iframe=no&w=100%&sidebar=yes&bg=no
+
+## paved paths leading the way to compliance
+
+https://kccnceu2023.sched.com/event/1Hyan/paved-paths-leading-the-way-to-compliance-kasper-borg-nissen-brian-nielsen-lunar?iframe=no&w=100%&sidebar=yes&bg=no
+
 
